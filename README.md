@@ -31,3 +31,5 @@ For generic directions on chrome extension installation see: https://support.goo
 ## Credit
 
 This project is originally forked from [ChatGPT for Google](https://github.com/wong2/chat-gpt-google-extension) and has elements pulled from Grepper (https://www.codegrepper.com). Also credit to [ChatGPT-Google](https://github.com/ZohaibAhmed/ChatGPT-Google) for original inspiration.
+
+And of course the folks who did all the hard work:[OpenAI ChatGPT](https://openai.com/blog/chatgpt/)
