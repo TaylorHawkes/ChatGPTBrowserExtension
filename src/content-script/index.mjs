@@ -47,7 +47,7 @@ commando.prototype.displayResult =function(answer,container) {
 
         var codeResults = document.createElement("code");
             codeResults.textContent=answer.answer;
-            codeResults.classList.add("commando_code_block");
+            codeResults.classList.add("gpt_commando_code_block");
 
             var languageGuess="javascript";
             if(answer.language){
@@ -58,10 +58,10 @@ commando.prototype.displayResult =function(answer,container) {
         var codeResultsPre = document.createElement("pre");
             codeResultsPre.classList.add("language-"+languageGuess);
             codeResultsPre.appendChild(codeResults);
-            codeResultsPre.classList.add("commando_selectable");
+            codeResultsPre.classList.add("gpt_commando_selectable");
             
         var codeResultsOuter = document.createElement("div");
-            codeResultsOuter.classList.add("commando_code_block_outer");
+            codeResultsOuter.classList.add("gpt_commando_code_block_outer");
 
          var answerOptionsHolder= document.createElement("div");
              answerOptionsHolder.classList.add("commando_answers_options_holder");
@@ -84,7 +84,7 @@ let co=new commando();
 async function run(question) {
 
   const container = document.createElement("div");
-  container.className = "chat-gpt-container";
+  container.className = "chat_gpt_container_enhanced";
 
  let lastAnswer=false;
  const loading=document.createElement("p");
@@ -103,8 +103,15 @@ async function run(question) {
 
   const port = Browser.runtime.connect();
   port.onMessage.addListener(function (msg) {
-     if(msg.answer=="[DONE]"){
+     if(msg.answer=="[DONE_FROM_CACHE]"){
        parseIntoAnswers(lastAnswer,container,true);
+     }else if(msg.answer=="[DONE]"){
+         parseIntoAnswers(lastAnswer,container,true);
+         port.postMessage({
+            'action':'cacheAnswer', 
+            'question':question,
+            'answer':lastAnswer
+         });
      }else if (msg.answer) {
         lastAnswer=msg.answer;
         if(!doneLoading){
@@ -120,8 +127,12 @@ async function run(question) {
       container.innerHTML = "<p>Failed to load response from ChatGPT</p>";
     }
   });
-  port.postMessage({ question });
+      port.postMessage({
+        'action':'getAnswer', 
+        'question':question
+     });
 }
+
 
 let allAnswers=[];
 function parseIntoAnswers(content,container,isDone){

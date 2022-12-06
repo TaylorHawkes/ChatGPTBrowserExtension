@@ -1,7 +1,7 @@
 {
   "name": "ChatGPT Browser Extension",
   "description": "Get ChatGPT Within Your Favorite Search Engines, upvote good answers, provide feedback, save/cache answers for later.",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "manifest_version": 3,
   "icons": {
     "16": "logo.png",
@@ -9,7 +9,7 @@
     "48": "logo.png",
     "128": "logo.png"
   },
-  "host_permissions": ["https://*.openai.com/"],
+  "host_permissions": ["https://*.openai.com/","https://*.codegrepper.com/"],
   "background": {
     "service_worker": "background/index.js"
   },
@@ -18,7 +18,7 @@
       "matches": ["https://*/search*"],
       "include_globs": ["*.google.*/*"],
       "js": ["content-script/index.js","prism/prism.js"],
-      "css": ["styles.css","main.css","codemirror/lib/codemirror.css", "codemirror/theme/prism-okaidia.css","prism/prism.css"]
+      "css": ["main.css","codemirror/lib/codemirror.css", "codemirror/theme/prism-okaidia.css","prism/prism.css"]
     }
   ]
 }

@@ -21,8 +21,31 @@ async function getAccessToken() {
   return resp.accessToken;
 }
 
+async function cacheAnswer(question,answer) {
+    const rawResponse = await fetch('https://www.codegrepper.com/api/cache_answer.php', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({term: question, answer:answer})
+  });
+ const content = await rawResponse.json();
+ console.log(content);
+}
+
 async function getAnswer(question, callback) {
+
   const accessToken = await getAccessToken();
+  const resp = await fetch("https://www.codegrepper.com/api/cache_get_answers.php?term="+question)
+  .then((r) => r.json())
+  .catch(() => ({}));
+  if(resp.answers.length){
+        callback(resp.answers[0].answer);
+        callback("[DONE_FROM_CACHE]");
+        return;
+  }
+
   await fetchSSE("https://chat.openai.com/backend-api/conversation", {
     method: "POST",
     headers: {
@@ -45,7 +68,7 @@ async function getAnswer(question, callback) {
       parent_message_id: uuidv4(),
     }),
     onMessage(message) {
-      console.debug("sse message", message);
+      //console.debug("sse message", message);
       if (message === "[DONE]") {
         callback("[DONE]");
         return;
@@ -61,15 +84,19 @@ async function getAnswer(question, callback) {
 
 Browser.runtime.onConnect.addListener((port) => {
   port.onMessage.addListener(async (msg) => {
-    console.debug("received msg", msg);
-    try {
-      await getAnswer(msg.question, (answer) => {
-        port.postMessage({ answer });
-      });
-    } catch (err) {
-      console.error(err);
-      port.postMessage({ error: err.message });
-      cache.delete(KEY_ACCESS_TOKEN);
+    if(msg.action=="getAnswer"){
+        try {
+          await getAnswer(msg.question, (answer) => {
+            port.postMessage({ answer });
+          });
+        } catch (err) {
+          console.error(err);
+          port.postMessage({ error: err.message });
+          cache.delete(KEY_ACCESS_TOKEN);
+        }
+
+    } else if(msg.action=="cacheAnswer"){
+        cacheAnswer(msg.question,msg.answer)
     }
   });
 });
