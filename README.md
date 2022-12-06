@@ -7,13 +7,22 @@ This browser extension provides ChatGPT answers on Your Google Results from your
 ## Installation
 
 #### Chrome Web Store 
+Comming Soon
 
-<https://chrome.google.com/webstore/detail/>
+#### Local Install
+
+1. Download `chrome.zip` from [Releases](https://github.com/TaylorHawkes/ChatGPTBrowserExtension/releases)
+2. Unzip the file
+3. In Chrome/Edge go to the extensions page (`chrome://extensions` or `edge://extensions`).
+4. Enable Developer Mode.
+5. Drag the unzipped folder anywhere on the page to import it (do not delete the folder afterwards).
+
+#### Chrome Web Store 
 
 ## Build from source
 
 1. Clone the repo
-2. Install dependencies with `npm`
+2. Install dependencies with `npm install`
 3. Run `./build.sh` for Chrome, `./build.sh firefox` for Firefox
 4. Load the `build` directory to your browser
 
@@ -21,4 +30,4 @@ For generic directions on chrome extension installation see: https://support.goo
 
 ## Credit
 
-This project is originally forked from [ChatGPT for Google](https://github.com/wong2/chat-gpt-google-extension) and has elements pulledfrom Grepper (https://www.codegrepper.com)
+This project is originally forked from [ChatGPT for Google](https://github.com/wong2/chat-gpt-google-extension) and has elements pulled from Grepper (https://www.codegrepper.com)
