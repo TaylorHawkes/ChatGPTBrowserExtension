@@ -13,6 +13,7 @@
 .commando_code_block_outer{
     position:relative;
     direction:ltr !important;
+    max-width:446px;
 }
 
 .commando_code_block_outer.grepper_last_normal_answer{
