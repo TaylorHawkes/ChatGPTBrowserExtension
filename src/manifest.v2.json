@@ -18,7 +18,8 @@
       "matches": ["https://*/search*"],
       "include_globs": ["*.google.*/*"],
       "js": ["content-script/index.js","prism/prism.js"],
-      "css": ["styles.css","main.css","codemirror/lib/codemirror.css", "codemirror/theme/prism-okaidia.css"]
+
+      "css": ["styles.css","main.css","codemirror/lib/codemirror.css", "codemirror/theme/prism-okaidia.css","prism/prism.css"]
     }
   ]
 }

@@ -47,6 +47,7 @@ async function getAnswer(question, callback) {
     onMessage(message) {
       console.debug("sse message", message);
       if (message === "[DONE]") {
+        callback("[DONE]");
         return;
       }
       const data = JSON.parse(message);

@@ -36,9 +36,12 @@ function commando() {
 }
 
 commando.prototype.displayResult =function(answer,container) {
-        if(answer.do_hide4 == 1){
+       if(!answer.is_code){
+        var newText = document.createElement("p");
+            newText.textContent=answer.answer;
+            container.appendChild(newText);
             return;
-        }
+       }
 
         var answer_id=answer.id;
 
@@ -70,18 +73,25 @@ commando.prototype.displayResult =function(answer,container) {
           answer.myDom=codeResultsOuter;
 
         container.appendChild(codeResultsOuter);
+        Prism.highlightAll();
 
         
 }
 
 
-
 let co=new commando();
 
 async function run(question) {
+
   const container = document.createElement("div");
   container.className = "chat-gpt-container";
-  container.innerHTML = '<p class="loading">Waiting for ChatGPT response...</p>';
+
+ let lastAnswer=false;
+ const loading=document.createElement("p");
+        loading.textContent="Waiting for ChatGPT response..."; 
+        loading.classList.add('loading');
+        container.appendChild(loading);
+  var doneLoading=false;
 
   const siderbarContainer = document.getElementById("rhs");
   if (siderbarContainer) {
@@ -93,15 +103,19 @@ async function run(question) {
 
   const port = Browser.runtime.connect();
   port.onMessage.addListener(function (msg) {
-    if (msg.answer) {
-      container.innerHTML = '<p><span class="prefix">ChatGPT:</span><pre></pre></p>';
+     if(msg.answer=="[DONE]"){
+       parseIntoAnswers(lastAnswer,container,true);
+     }else if (msg.answer) {
+        lastAnswer=msg.answer;
+        if(!doneLoading){
+            container.removeChild(loading);
+            doneLoading=true;
+        }
+       parseIntoAnswers(msg.answer,container,false);
 
-    var answer = parseIntoAnswers(msg.answer,container);
     // container.querySelector("pre").textContent = answerContent ;
-
     } else if (msg.error === "UNAUTHORIZED") {
-      container.innerHTML =
-        '<p>Please login at <a href="https://chat.openai.com" target="_blank">chat.openai.com</a> first</p>';
+      container.innerHTML = '<p>Please login at <a href="https://chat.openai.com" target="_blank">chat.openai.com</a> first</p>';
     } else {
       container.innerHTML = "<p>Failed to load response from ChatGPT</p>";
     }
@@ -110,23 +124,55 @@ async function run(question) {
 }
 
 let allAnswers=[];
-function parseIntoAnswers(content,container){
+function parseIntoAnswers(content,container,isDone){
     if(content.length > 1){
         let answersRaw=content.split("\n"); 
-        let answers=[];
-        for (let j = 0;j<answersRaw.length;i++){
-            if(answersRaw[j].length > 1){
-                answers.push(answersRaw[j]);
+        let answers2=[];
+        for (let j = 0;j<answersRaw.length;j++){
+            //push the last answer so we can remove it later
+            if(answersRaw[j].length > 0 || answersRaw.length==j){
+                answers2.push(answersRaw[j]);
             }
         }
+
+        if(answers2.length && !isDone){
+            answers2.pop();
+        }
+
+        let answers=[];
+        let isCode=false;
+        let fullAnswer="";
+        for (let t = 0;t<answers2.length;t++){
+
+            if(answers2[t]=='```'){
+                if(isCode){
+                    //end the code
+                    answers.push({"is_code":true,"answer":fullAnswer})
+                    fullAnswer="";
+                    isCode=false;
+                }else{
+                    isCode=true;
+                }
+            }else{
+                if(isCode){
+                    fullAnswer+=answers2[t]+"\n";
+                }else{
+                    answers.push({"is_code":false,"answer":answers2[t]})
+                }
+            }
+        }
+        
+
+        //remove the last answer bc it will be too short.
 
         if(answers.length > allAnswers.length){
             for (let i = allAnswers.length;i<answers.length;i++){
                 let answer={};
                     answer.id=12;
-                    answer.answer=answers[i];
+                    answer.answer=answers[i].answer;
                     answer.user_id=4;
                     answer.created_at=4;
+                    answer.is_code=answers[i].is_code;
                     allAnswers.push(answer);
                     co.displayResult(answer,container);
             }
