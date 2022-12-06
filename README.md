@@ -6,8 +6,9 @@ This browser extension provides ChatGPT answers in your Google Results from your
 
 ## Installation
 
-#### Chrome Web Store 
-Comming Soon
+#### Chrome Web Store (Easiest Way to Install) 
+
+[Install From Chrome Web Store][https://chrome.google.com/webstore/detail/chatgpt-browser-extension/nhddlbkakdlmkogdnmbadepphblklknl]
 
 #### Local Install
 
