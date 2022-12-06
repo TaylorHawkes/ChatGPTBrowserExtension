@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+/**
+ *
+ * prism.js Okaidia dark for JavaScript, CSS and HTML
+ * @author Yasin Kuyu
+ * http://code.insya.com
+ *
+ */
+
+div.cm-s-prism-okaidia {
+	background: #272822;
+	color: #f8f8f2;
+	text-shadow: 0 1px rgba(0,0,0,0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  line-height: 1.5;
+  /*
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+  */
+}
+
+.cm-s-prism-okaidia .TaysCodeMirror-line::selection, .cm-s-midnight .TaysCodeMirror-line > span::selection, .cm-s-midnight .TaysCodeMirror-line > span > span::selection { background: rgba(49, 77, 103, .99); }
+.cm-s-prism-okaidia .TaysCodeMirror-line::-moz-selection, .cm-s-midnight .TaysCodeMirror-line > span::-moz-selection, .cm-s-midnight .TaysCodeMirror-line > span > span::-moz-selection { background: rgba(49, 77, 103, .99); }
+.cm-s-prism-okaidia .TaysCodeMirror-gutters { background: #0F192A; border-right: 1px solid; }
+
+.cm-s-prism-okaidia .TaysCodeMirror-guttermarker { color: white; }
+.cm-s-prism-okaidia .TaysCodeMirror-guttermarker-subtle { color: #d0d0d0; }
+.cm-s-prism-okaidia  .TaysCodeMirror-linenumber { color: #D0D0D0; }
+
+.cm-s-prism-okaidia span.cm-number {color: #ae81ff;}
+.cm-s-prism-okaidia span.cm-atom {color: #bde052;}
+.cm-s-prism-okaidia span.cm-comment {color: slategray;}
+.cm-s-prism-okaidia span.cm-meta {opacity: .7;}
+.cm-s-prism-okaidia span.cm-variable {color: #f8f8f2;} 
+.cm-s-prism-okaidia span.cm-variable-2 {color: #f8f8f2;}
+.cm-s-prism-okaidia span.cm-qualifier {color: #f5b83d;}
+.cm-s-prism-okaidia span.cm-keyword {color: #66d9ef;}
+.cm-s-prism-okaidia span.cm-builtin {color: #a6e22e;}
+.cm-s-prism-okaidia span.cm-error {border-bottom: 1px red dotted;}
+.cm-s-prism-okaidia span.cm-link {color: #762;}
+
+.cm-s-prism-okaidia span.cm-variable {color: #ffff;}
+.cm-s-prism-okaidia span.cm-variable-2 {color: #fff;}
+.cm-s-prism-okaidia span.cm-variable-3 {color: #fff;}
+.cm-s-prism-okaidia span.cm-property {color: #fff;}
+
+.cm-s-prism-okaidia span.cm-bracket {color: #fff;}
+.cm-s-prism-okaidia span.cm-tag {color: #f92672;}
+.cm-s-prism-okaidia span.cm-attribute {color: #a6e22e;}
+
+.cm-s-prism-okaidia span.cm-string {
+color: #e6db74;
+color: #a6e22e;
+}
+.cm-s-prism-okaidia span.cm-string-2 {color: #f50;}
+
+.TaysCodeMirror .cm-s-prism-okaidia .TaysCodeMirror-cursor {border-color: white;}
+
+
+.cm-s-prism-okaidia .TaysCodeMirror-cursor { border-left: 1px solid #F8F8F0; }
