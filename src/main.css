@@ -6,6 +6,7 @@
   flex-basis: 0;
   flex-grow: 1;
   margin-left:10px;
+  max-width:436px !important;
 }
 
 .chat_gpt_container_enhanced p {
