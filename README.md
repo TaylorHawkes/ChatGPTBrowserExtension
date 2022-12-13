@@ -1,6 +1,7 @@
 # ChatGPT Browser Extension (Enhanced)
 
-This browser extension provides ChatGPT answers in your Google Results from your favorite browser. It is an enhanced version of the ChatGPT for Google Extension [found here](https://github.com/wong2/chat-gpt-google-extension). This browser extension offers additional features such as highlighted code snippets, cached results for improved performance as well as ability to save/edit answers and provide answer feedback in the form of upvotes (Grepper style upvoting/saving system).
+This browser extension provides ChatGPT answers in your Google Results from your favorite browser. It is an enhanced version of the ChatGPT for Google Extension [found here](https://github.com/wong2/chat-gpt-google-extension). This browser extension offers additional features such as highlighted code snippets, cached results for improved performance and additional helpful settings.
+
 
 ![Screenshot](screenshot.png?raw=true)
 
