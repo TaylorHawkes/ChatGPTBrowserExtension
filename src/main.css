@@ -7,6 +7,20 @@
   flex-grow: 1;
   margin-left:10px;
   max-width:436px !important;
+  position:relative;
+}
+.chat_gpt_container_enhanced p:first-of-type{
+    margin-top:0px;
+}
+.chat_gpt_container_enhanced p:last-of-type{
+    margin-bottom:0px;
+}
+
+.chat_gpt_container_attribution{
+    position:absolute;
+    bottom:-16px;
+    right:0px;
+    font-size:12px;
 }
 
 .chat_gpt_container_enhanced p {

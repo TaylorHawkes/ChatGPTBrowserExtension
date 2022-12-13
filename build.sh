@@ -6,6 +6,8 @@ npx esbuild src/content-script/index.mjs src/background/index.mjs --bundle --out
 
 cp src/*.css build/
 cp src/*.png build/
+cp src/popup.* build/
+
 cp -fr codemirror build/
 cp -fr prism build/
 

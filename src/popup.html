@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<title>ChatGPT Browser Extension Settings </title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div id="logo_holder">
+    <div id="logo">ChatGPT Settings</div>
+    <img src="logo.png">
+</div>
+
+<div style="padding:15px;">
+<label class="toggle">
+  <input id="enable_caching" class="toggle-checkbox" type="checkbox" checked>
+  <div class="toggle-switch"></div>
+  <span class="toggle-label">Enable Caching</span>
+  <div class="toggle-label-desc"> Caching ChatGPT answers improves loading performance and limits request. Note that caching is done per search query so answers will not take context into account. 
+</div>
+</label>
+
+<hr>
+
+<label class="toggle">
+  <input id="enable_keypress" class="toggle-checkbox" type="checkbox">
+  <div class="toggle-switch"></div>
+  <span class="toggle-label"> Require "g" Keypress </span>
+  <div class="toggle-label-desc"> Only load ChatGPT answers after doing a google search by pressing the letter "g". Turning this off will always trigger ChatGPT.</div>
+</label>
+</div>
+
+</body>
+</html>
+<script src="popup.js"></script>

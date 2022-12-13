@@ -81,17 +81,26 @@ commando.prototype.displayResult =function(answer,container) {
 
 let co=new commando();
 
+var doneLoading=false;
+var  loading=document.createElement("p");
+     loading.textContent="Waiting for ChatGPT response..."; 
+     loading.classList.add('loading');
+  
 async function run(question) {
-
   const container = document.createElement("div");
   container.className = "chat_gpt_container_enhanced";
 
+  const attribution = document.createElement("a");
+        attribution.textContent="ChatGPT";
+        attribution.href="https://openai.com/blog/chatgpt/";
+        attribution.target="_blank";
+        attribution.classList.add('chat_gpt_container_attribution');
+    container.appendChild(attribution);
+
+
  let lastAnswer=false;
- const loading=document.createElement("p");
-        loading.textContent="Waiting for ChatGPT response..."; 
-        loading.classList.add('loading');
-        container.appendChild(loading);
-  var doneLoading=false;
+       container.appendChild(loading);
+       doneLoading=false;
 
   const siderbarContainer = document.getElementById("rhs");
   if (siderbarContainer) {
@@ -114,10 +123,8 @@ async function run(question) {
          });
      }else if (msg.answer) {
         lastAnswer=msg.answer;
-        if(!doneLoading){
-            container.removeChild(loading);
-            doneLoading=true;
-        }
+    
+
        parseIntoAnswers(msg.answer,container,false);
 
     // container.querySelector("pre").textContent = answerContent ;
@@ -175,6 +182,12 @@ function parseIntoAnswers(content,container,isDone){
         
 
         //remove the last answer bc it will be too short.
+        if(answers.length){
+           if(!doneLoading){
+                container.removeChild(loading);
+                doneLoading=true;
+            }
+        }
 
         if(answers.length > allAnswers.length){
             for (let i = allAnswers.length;i<answers.length;i++){
@@ -192,11 +205,25 @@ function parseIntoAnswers(content,container,isDone){
 }
 
 const searchInput = document.getElementsByName("q")[0];
+
 if (searchInput && searchInput.value) {
   // only run on first page
   const startParam = new URL(location.href).searchParams.get("start") || "0";
   if (startParam === "0") {
-    run(searchInput.value);
+    chrome.storage.sync.get(['enable_keypress'], function(all_items) {
+        var enable_keypress=(all_items.hasOwnProperty('enable_keypress')) ? all_items.enable_keypress : false; 
+        if(!enable_keypress){
+            run(searchInput.value);
+        }else{
+            //listen for "g"
+            document.addEventListener('keydown', function(event) {
+                if(event.key=="g"){
+                    run(searchInput.value);
+                }
+            });
+        }
+    });
+
   }
 }
 
